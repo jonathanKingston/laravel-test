@@ -67,6 +67,7 @@ class testController extends \BaseController {
 	public function update($id)
 	{
 		$test = Test::find($id);
+                $test->update(array('name' => Input::get('name'), 'description' => Input::get('description')));
 		return Redirect::to('test/' . $test->id);
 	}
 
