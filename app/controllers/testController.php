@@ -31,7 +31,11 @@ class testController extends \BaseController {
 	public function store()
 	{
 		$test = Test::create(array('name' => Input::get('name'), 'description' => Input::get('description')));
-		return Redirect::to('test/' . $test->id);
+
+                if ($test->validator->fails()) {
+                  return Redirect::action('testController@create')->withInput()->withErrors($test->validator);
+                }
+		return Redirect::action('testController@show', action($test->id));
 	}
 
 	/**
@@ -68,7 +72,11 @@ class testController extends \BaseController {
 	{
 		$test = Test::find($id);
                 $test->update(array('name' => Input::get('name'), 'description' => Input::get('description')));
-		return Redirect::to('test/' . $test->id);
+
+                if ($test->validator->fails()) {
+                  return Redirect::action('testController@edit', array($test->id))->withInput()->withErrors($test->validator);
+                }
+		return Redirect::action('testController@show', array($test->id));
 	}
 
 	/**

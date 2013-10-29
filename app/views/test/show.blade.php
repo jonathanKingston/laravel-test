@@ -10,5 +10,7 @@
     {{ Form::submit('Delete') }}
   {{ Form::close() }}
 
+  {{ link_to_action('testController@edit', 'Edit', array($test->id)) }}
+
   {{ link_to_action('testController@index', 'Show all') }}
 @endsection
